@@ -1,24 +1,57 @@
-// 1. เรียกใช้งาน Module ที่ชื่อว่า 'http' ซึ่งเป็นระบบพื้นฐานของ Node.js สำหรับทำเซิร์ฟเวอร์
-const http = require('http');
+// 3.3 ส่งข้อมูลหน้าเว็บกลับไปหาผู้ใช้
+res.end(`
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
 
-// 2. กำหนดช่องทาง (Port) ที่เซิร์ฟเวอร์จะใช้สื่อสาร โดยให้ใช้ของที่ Cloud กำหนดมา
-const port = process.env.PORT || 3000;
+    <style>
+        body {
+            background-color: #0f172a;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 120px;
+        }
 
-// 3. สร้างเครื่องแม่ข่าย (Server) ที่คอยรับคำขอ (req) และตอบกลับ (res)
-const server = http.createServer((req, res) => {
+        .box {
+            width: 700px;
+            margin: auto;
+            padding: 40px;
+            border: 3px solid #00ffcc;
+            border-radius: 20px;
+            box-shadow: 0 0 20px #00ffcc;
+            background-color: #111827;
+        }
 
-    // 3.1 ตั้งรหัสสถานะ 200 หมายถึง "ทำงานสำเร็จ (OK)"
-    res.statusCode = 200;
+        h1 {
+            color: #00ffcc;
+        }
 
-    // 3.2 บอกเบราว์เซอร์ของผู้ใช้ว่า สิ่งที่ส่งกลับไปคือไฟล์ข้อความแบบ HTML และรองรับภาษาไทย
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        .status {
+            margin-top: 20px;
+            color: #00ff66;
+            font-size: 24px;
+        }
+    </style>
+</head>
 
-    // 3.3 ส่งข้อมูลหน้าเว็บกลับไปหาผู้ใช้
-    res.end('<h1>สวัสดีครับ! นี่คือ Web Server ของ ธนดล แสงทอง รหัสนักศึกษา [69319011719]</h1><p>เครื่องแม่ข่ายทำงานปกติบนระบบ Railway แล้วครับผม!</p>');
+<body>
 
-});
+    <div class="box">
+        <h1>🎮 GAME SERVER 🎮</h1>
 
-// 4. สั่งให้เซิร์ฟเวอร์เริ่มต้นเปิดรับฟังการเชื่อมต่อ
-server.listen(port, () => {
-    console.log(`Server is running! เครื่องแม่ข่ายเปิดทำงานแล้วที่ช่องทาง: ${port}`);
-});
+        <h2>ธนดล แสงทอง</h2>
+
+        <p>รหัสนักศึกษา : 69319011719</p>
+
+        <p>เครื่องแม่ข่ายทำงานปกติบนระบบ Railway แล้วครับผม!</p>
+
+        <div class="status">
+            🟢 Server Online
+        </div>
+    </div>
+
+</body>
+</html>
+`);
