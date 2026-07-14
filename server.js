@@ -1,60 +1,81 @@
-// 1. เรียกใช้งาน Module ที่ชื่อว่า 'http' ซึ่งเป็นระบบพื้นฐานของ Node.js สำหรับทำเซิร์ฟเวอร์
-const http = require('http');
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>Japanese Profile</title>
 
-// 2. กำหนดช่องทาง (Port) ที่เซิร์ฟเวอร์จะใช้สื่อสาร โดยให้ใช้ของที่ Cloud กำหนดมา (process.env.PORT) ถ้าไม่มีให้ใช้ 3000
-const port = process.env.PORT || 3000;
+<style>
+body{
+    margin:0;
+    background:linear-gradient(135deg,#111,#8B0000);
+    font-family: "Segoe UI", sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    color:white;
+}
 
-// 3. สร้างเครื่องแม่ข่าย (Server) ที่คอยรับคำขอ (req) และตอบกลับ (res)
-const server = http.createServer((req, res) => {
+.card{
+    width:420px;
+    background:rgba(0,0,0,.75);
+    border:3px solid #ff2d55;
+    border-radius:20px;
+    padding:30px;
+    text-align:center;
+    box-shadow:0 0 25px #ff2d55;
+}
 
-  // 3.1 ตั้งรหัสสถานะ 200 หมายถึง "ทำงานสำเร็จ (OK)"
-  res.statusCode = 200;
+h1{
+    color:#ff4d6d;
+    font-size:36px;
+    margin-bottom:5px;
+}
 
-  // 3.2 บอกเบราว์เซอร์ของผู้ใช้ว่า สิ่งที่ส่งกลับไปคือไฟล์ข้อความแบบ HTML และรองรับภาษาไทย (utf-8)
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+.jp{
+    color:#ffffff;
+    font-size:18px;
+    margin-bottom:20px;
+}
 
-  // 3.3 ส่งข้อมูลหน้าเว็บกลับไปหาผู้ใช้
-  res.end(`
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Game Server</title>
-        <style>
-            body {
-                background-color: #020617;
-                color: #00ffcc;
-                font-family: Arial, sans-serif;
-                text-align: center;
-                padding-top: 100px;
-            }
-            .container {
-                display: inline-block;
-                border: 2px solid #00ffcc;
-                padding: 30px;
-                border-radius: 10px;
-                background-color: #0f172a;
-                box-shadow: 0 0 15px #00ffcc;
-            }
-            h1 { color: #00ffcc; }
-            h2 { color: #38bdf8; }
-            .status { color: #00ff66; font-weight: bold; margin-top: 15px; }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>🎮 GAME SERVER 🎮</h1>
-            <h2>ธนดล แสงทอง</h2>
-            <p>รหัสนักศึกษา : 69319011719</p>
-            <p>เครื่องแม่ข่ายทำงานปกติบนระบบ Railway แล้วครับผม!</p>
-            <p class="status">🟢 SERVER ONLINE</p>
-        </div>
-    </body>
-    </html>
-  `);
-});
+.info{
+    font-size:20px;
+    margin:12px 0;
+}
 
-// 4. สั่งให้เซิร์ฟเวอร์เริ่มต้นเปิดรับฟังการเชื่อมต่อตาม Port ที่กำหนดไว้
-server.listen(port, () => {
-  console.log(`Server is running! เครื่องแม่ข่ายเปิดทำงานแล้วที่ช่องทาง: ${port}`);
-});
+.line{
+    width:80%;
+    height:2px;
+    background:#ff2d55;
+    margin:20px auto;
+}
+
+.footer{
+    color:#ffb3c1;
+    font-style:italic;
+}
+</style>
+
+</head>
+<body>
+
+<div class="card">
+    <h1>自己紹介</h1>
+    <div class="jp">Jikoshoukai (แนะนำตัว)</div>
+
+    <div class="line"></div>
+
+    <div class="info">👤 ชื่อ : <b>ธนดล แสงทอง</b></div>
+    <div class="info">🎓 รหัสนักเรียน : <b>69319011719</b></div>
+
+    <div class="line"></div>
+
+    <div class="footer">
+        「よろしくお願いします。」
+        <br>
+        Yoroshiku Onegaishimasu
+    </div>
+</div>
+
+</body>
+</html>
