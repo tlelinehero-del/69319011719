@@ -4,7 +4,7 @@ const server = http.createServer((req, res) => {
     // กำหนดให้ส่งข้อมูลกลับไปเป็นหน้าเว็บ HTML และรองรับภาษาไทย/ญี่ปุ่น (utf-8)
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     
-    // โค้ด HTML/CSS ที่เปลี่ยนรูปลักษณ์เป็นการ์ดมีมฟุตบอลสุดปั่น
+    // โค้ด HTML/CSS ระบบแสดงผล GIF มีมแบบเป็นทางการ (ไม่พังแน่นอน)
     res.end(`
 <!DOCTYPE html>
 <html lang="th">
@@ -50,32 +50,43 @@ body {
     box-shadow: 0 0 50px rgba(229, 27, 35, 1);
 }
 
-/* ธงชาติไทยมุมซ้ายบนเหมือนเดิม */
+/* ธงชาติไทยมุมซ้ายบน (ใช้ API สำรองประสิทธิภาพสูง) */
 .flag-thailand {
     position: absolute;
     top: 20px;
     left: 20px;
     width: 45px;
-    height: auto;
+    height: 30px;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.6);
     z-index: 10;
 }
 
-/* 🎉 มีมแทนรูปโปรไฟล์ (ใช้มีม SIU ในตำนาน) */
-.meme-profile {
-    width: 200px;
-    height: auto;
+/* ครอบกล่องแสดงผล GIF ของ GIPHY ให้พริ้วไหว */
+.meme-container {
+    width: 220px;
+    height: 165px;
+    margin: 10px auto 20px auto;
     border-radius: 15px;
     border: 4px solid #fff;
-    margin: 10px auto 20px auto;
-    display: block;
     box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
-    /* เพิ่มเอฟเฟกต์สั่นเล็กน้อยตอน Hover เพื่อความเป็นมีม */
+    overflow: hidden;
+    position: relative;
+    background-color: #000;
     transition: transform 0.2s ease-in-out;
 }
 
-.card:hover .meme-profile {
+.meme-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none; /* ห้ามกดคลิกในรูป GIF */
+}
+
+.card:hover .meme-container {
     animation: memeShake 0.5s;
     animation-iteration-count: infinite;
 }
@@ -144,7 +155,6 @@ h1 {
     line-height: 1.6;
 }
 
-/* ปรับคำ SIUUU ให้ดูปั่นขึ้น */
 .siu-text {
     font-family: "Impact", sans-serif;
     color: #ffd700;
@@ -161,18 +171,20 @@ h1 {
 <body>
 
 <div class="card">
-    <!-- 🇹🇭 ธงชาติไทยเหมือนเดิม -->
-    <img src="https://flagcdn.com/h40/th.png" alt="Thailand Flag" class="flag-thailand">
+    <!-- 🇹🇭 ธงชาติไทย (ใช้ CDN สำรองแบบพิกเซลตรง ไม่แตกแน่นอน) -->
+    <img src="https://openmoji.org/data/color/svg/1F1F9-1F1ED.svg" alt="Thailand Flag" class="flag-thailand">
 
-    <!-- 🎉 มีมโรนัลโด้ SIUUUU ในตำนาน! -->
-    <img src="https://media.giphy.com/media/r1IMdmkhWpZyM/giphy.gif" alt="Ronaldo SIU Meme" class="meme-profile">
+    <!-- 🎬 ตัวเล่นมีม GIPHY (ใช้ iframe อย่างเป็นทางการเพื่อป้องกันภาพแตก) -->
+    <div class="meme-container">
+        <iframe src="https://giphy.com/embed/r1IMdmkhWpZyM" allowFullScreen></iframe>
+    </div>
     
     <h1>自己紹介</h1>
     <div class="jp-sub">Jikoshoukai (แนะนำตัว)</div>
 
     <div class="line"></div>
 
-    <!-- ข้อมูลแนะนำตัวของคุณเหมือนเดิมเป๊ะ -->
+    <!-- ข้อมูลแนะนำตัวของคุณ -->
     <div class="info"><span>👤 ชื่อ :</span> <b>ธนดล แสงทอง</b></div>
     <div class="info"><span>🎓 รหัส :</span> <b>69319011719</b></div>
 
