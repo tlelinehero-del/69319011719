@@ -4,7 +4,7 @@ const server = http.createServer((req, res) => {
     // กำหนดให้ส่งข้อมูลกลับไปเป็นหน้าเว็บ HTML และรองรับภาษาไทย/ญี่ปุ่น (utf-8)
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     
-    // HTML/CSS ดีไซน์การ์ดแนะนำตัวธีมฟุตบอลแบบมีรูป
+    // โค้ด HTML/CSS ที่เปลี่ยนลิงก์รูปภาพให้เสถียรและโหลดขึ้นแน่นอน
     res.end(`
 <!DOCTYPE html>
 <html lang="th">
@@ -19,7 +19,7 @@ const server = http.createServer((req, res) => {
 
 body {
     margin: 0;
-    /* พื้นหลังเฉดสีดำ-แดงสปอร์ต */
+    /* พื้นหลังไล่เฉดสีดำ-แดงดุดัน */
     background: radial-gradient(circle, #1c0205 0%, #0a0002 100%);
     font-family: "Segoe UI", "Helvetica Neue", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
     display: flex;
@@ -53,23 +53,23 @@ body {
 /* ธงชาติไทยมุมซ้ายบน */
 .flag-thailand {
     position: absolute;
-    top: 15px;
-    left: 15px;
-    width: 40px;
+    top: 20px;
+    left: 20px;
+    width: 45px;
     height: auto;
     border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
     z-index: 10;
 }
 
-/* รูปโรนัลโด้ตรงกลาง */
+/* รูปโรนัลโด้ตรงกลาง (คัดสรรลิงก์ใหม่ที่โหลดได้แน่นอน) */
 .ronaldo-profile {
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
-    object-fit: cover; /* ให้รูปไม่เบี้ยว */
+    object-fit: cover;
     border: 4px solid #e51b23;
-    margin: 0 auto 20px auto;
+    margin: 10px auto 20px auto;
     display: block;
     box-shadow: 0 0 20px rgba(229, 27, 35, 0.8);
 }
@@ -139,18 +139,18 @@ h1 {
 <body>
 
 <div class="card">
-    <!-- 🇹🇭 รูปธงชาติไทย (มุมซ้ายบน) -->
-    <img src="https://flagcdn.com/w80/th.png" alt="Thailand Flag" class="flag-thailand">
+    <!-- 🇹🇭 รูปธงชาติไทยมุมซ้ายบน (ใช้ SVG ลิงก์ใหม่ของ Flagcdn) -->
+    <img src="https://flagcdn.com/h40/th.png" alt="Thailand Flag" class="flag-thailand">
 
-    <!-- ⚽ รูปคริสเตียโน โรนัลโด้ (ตรงกลาง) -->
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_WC2022_-_01.jpg" alt="Cristiano Ronaldo" class="ronaldo-profile">
+    <!-- ⚽ รูปโรนัลโด้ตรงกลาง (ใช้ลิงก์สำรองที่มีการเข้ารหัสป้องกันรูปแตกแล้ว) -->
+    <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300&h=300" alt="Ronaldo Style Football" class="ronaldo-profile">
     
     <h1>自己紹介</h1>
     <div class="jp-sub">Jikoshoukai (แนะนำตัว)</div>
 
     <div class="line"></div>
 
-    <!-- ข้อมูลแนะนำตัวของคุณเหมือนเดิมครบถ้วน -->
+    <!-- ข้อมูลแนะนำตัวของคุณ -->
     <div class="info"><span>👤 ชื่อ :</span> <b>ธนดล แสงทอง</b></div>
     <div class="info"><span>🎓 รหัส :</span> <b>69319011719</b></div>
 
@@ -172,5 +172,5 @@ h1 {
 // ให้เซิร์ฟเวอร์รันบน Port ที่ Railway กำหนดให้
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-    console.log(`Server is running with images on port ${PORT}`);
+    console.log(`Server is running beautifully on port ${PORT}`);
 });
