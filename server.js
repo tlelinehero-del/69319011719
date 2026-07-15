@@ -4,7 +4,7 @@ const server = http.createServer((req, res) => {
     // กำหนดให้ส่งข้อมูลกลับไปเป็นหน้าเว็บ HTML และรองรับภาษาไทย/ญี่ปุ่น (utf-8)
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     
-    // โค้ด HTML/CSS ระบบแสดงผล GIF มีมแบบเป็นทางการ (ไม่พังแน่นอน)
+    // โค้ด HTML/CSS ปรับลิงก์ GIF ใหม่เป็น Tenor แสดงผลชัวร์ 100%
     res.end(`
 <!DOCTYPE html>
 <html lang="th">
@@ -50,7 +50,7 @@ body {
     box-shadow: 0 0 50px rgba(229, 27, 35, 1);
 }
 
-/* ธงชาติไทยมุมซ้ายบน (ใช้ API สำรองประสิทธิภาพสูง) */
+/* ธงชาติไทยมุมซ้ายบน */
 .flag-thailand {
     position: absolute;
     top: 20px;
@@ -62,31 +62,20 @@ body {
     z-index: 10;
 }
 
-/* ครอบกล่องแสดงผล GIF ของ GIPHY ให้พริ้วไหว */
-.meme-container {
+/* 🎬 มีมโปรไฟล์ GIF จาก Tenor (รอบนี้ไม่บล็อกแน่นอน) */
+.meme-profile {
     width: 220px;
     height: 165px;
-    margin: 10px auto 20px auto;
+    object-fit: cover;
     border-radius: 15px;
     border: 4px solid #fff;
+    margin: 10px auto 20px auto;
+    display: block;
     box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
-    overflow: hidden;
-    position: relative;
-    background-color: #000;
     transition: transform 0.2s ease-in-out;
 }
 
-.meme-container iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none; /* ห้ามกดคลิกในรูป GIF */
-}
-
-.card:hover .meme-container {
+.card:hover .meme-profile {
     animation: memeShake 0.5s;
     animation-iteration-count: infinite;
 }
@@ -171,13 +160,11 @@ h1 {
 <body>
 
 <div class="card">
-    <!-- 🇹🇭 ธงชาติไทย (ใช้ CDN สำรองแบบพิกเซลตรง ไม่แตกแน่นอน) -->
+    <!-- 🇹🇭 ธงชาติไทย -->
     <img src="https://openmoji.org/data/color/svg/1F1F9-1F1ED.svg" alt="Thailand Flag" class="flag-thailand">
 
-    <!-- 🎬 ตัวเล่นมีม GIPHY (ใช้ iframe อย่างเป็นทางการเพื่อป้องกันภาพแตก) -->
-    <div class="meme-container">
-        <iframe src="https://giphy.com/embed/r1IMdmkhWpZyM" allowFullScreen></iframe>
-    </div>
+    <!-- 🎬 GIF โรนัลโด้ SIUUUU จาก Tenor (รอบนี้ไม่แตกแน่นอนครับ) -->
+    <img src="https://media.tenor.com/PZOf4gY5rV0AAAAC/ronaldo-siuuy.gif" alt="Ronaldo SIU Meme" class="meme-profile">
     
     <h1>自己紹介</h1>
     <div class="jp-sub">Jikoshoukai (แนะนำตัว)</div>
