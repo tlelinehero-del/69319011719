@@ -4,13 +4,13 @@ const server = http.createServer((req, res) => {
     // กำหนดให้ส่งข้อมูลกลับไปเป็นหน้าเว็บ HTML และรองรับภาษาไทย/ญี่ปุ่น (utf-8)
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     
-    // โค้ด HTML/CSS ที่เปลี่ยนลิงก์รูปภาพให้เสถียรและโหลดขึ้นแน่นอน
+    // โค้ด HTML/CSS ที่เปลี่ยนรูปลักษณ์เป็นการ์ดมีมฟุตบอลสุดปั่น
     res.end(`
 <!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>CR7 Style Profile with Images</title>
+<title>CR7 Meme Style Profile</title>
 
 <style>
 * {
@@ -19,7 +19,7 @@ const server = http.createServer((req, res) => {
 
 body {
     margin: 0;
-    /* พื้นหลังไล่เฉดสีดำ-แดงดุดัน */
+    /* พื้นหลังเฉดสีดำ-แดงดุดัน สไตล์สปอร์ต */
     background: radial-gradient(circle, #1c0205 0%, #0a0002 100%);
     font-family: "Segoe UI", "Helvetica Neue", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
     display: flex;
@@ -32,7 +32,7 @@ body {
 
 .card {
     width: 450px;
-    background: rgba(10, 5, 5, 0.85);
+    background: rgba(10, 5, 5, 0.9);
     border: 3px solid #e51b23;
     border-radius: 25px;
     padding: 40px 30px 30px 30px;
@@ -46,11 +46,11 @@ body {
 }
 
 .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 0 45px rgba(229, 27, 35, 0.9);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 0 50px rgba(229, 27, 35, 1);
 }
 
-/* ธงชาติไทยมุมซ้ายบน */
+/* ธงชาติไทยมุมซ้ายบนเหมือนเดิม */
 .flag-thailand {
     position: absolute;
     top: 20px;
@@ -62,16 +62,36 @@ body {
     z-index: 10;
 }
 
-/* รูปโรนัลโด้ตรงกลาง (คัดสรรลิงก์ใหม่ที่โหลดได้แน่นอน) */
-.ronaldo-profile {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #e51b23;
+/* 🎉 มีมแทนรูปโปรไฟล์ (ใช้มีม SIU ในตำนาน) */
+.meme-profile {
+    width: 200px;
+    height: auto;
+    border-radius: 15px;
+    border: 4px solid #fff;
     margin: 10px auto 20px auto;
     display: block;
-    box-shadow: 0 0 20px rgba(229, 27, 35, 0.8);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+    /* เพิ่มเอฟเฟกต์สั่นเล็กน้อยตอน Hover เพื่อความเป็นมีม */
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover .meme-profile {
+    animation: memeShake 0.5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes memeShake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
 h1 {
@@ -124,14 +144,16 @@ h1 {
     line-height: 1.6;
 }
 
+/* ปรับคำ SIUUU ให้ดูปั่นขึ้น */
 .siu-text {
     font-family: "Impact", sans-serif;
-    color: #ffd700; /* สีทองแชมเปียน */
-    font-size: 24px;
-    letter-spacing: 2px;
+    color: #ffd700;
+    font-size: 32px;
+    letter-spacing: 3px;
     margin-top: 15px;
     display: block;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+    transform: rotate(-5deg);
 }
 </style>
 
@@ -139,18 +161,18 @@ h1 {
 <body>
 
 <div class="card">
-    <!-- 🇹🇭 รูปธงชาติไทยมุมซ้ายบน (ใช้ SVG ลิงก์ใหม่ของ Flagcdn) -->
+    <!-- 🇹🇭 ธงชาติไทยเหมือนเดิม -->
     <img src="https://flagcdn.com/h40/th.png" alt="Thailand Flag" class="flag-thailand">
 
-    <!-- ⚽ รูปโรนัลโด้ตรงกลาง (ใช้ลิงก์สำรองที่มีการเข้ารหัสป้องกันรูปแตกแล้ว) -->
-    <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300&h=300" alt="Ronaldo Style Football" class="ronaldo-profile">
+    <!-- 🎉 มีมโรนัลโด้ SIUUUU ในตำนาน! -->
+    <img src="https://media.giphy.com/media/r1IMdmkhWpZyM/giphy.gif" alt="Ronaldo SIU Meme" class="meme-profile">
     
     <h1>自己紹介</h1>
     <div class="jp-sub">Jikoshoukai (แนะนำตัว)</div>
 
     <div class="line"></div>
 
-    <!-- ข้อมูลแนะนำตัวของคุณ -->
+    <!-- ข้อมูลแนะนำตัวของคุณเหมือนเดิมเป๊ะ -->
     <div class="info"><span>👤 ชื่อ :</span> <b>ธนดล แสงทอง</b></div>
     <div class="info"><span>🎓 รหัส :</span> <b>69319011719</b></div>
 
@@ -160,7 +182,7 @@ h1 {
         「よろしくお願いします。」
         <br>
         Yoroshiku Onegaishimasu
-        <span class="siu-text">🏆 SIUUUUUUU! 🏆</span>
+        <span class="siu-text">SIUUUUUUU!</span>
     </div>
 </div>
 
@@ -172,5 +194,5 @@ h1 {
 // ให้เซิร์ฟเวอร์รันบน Port ที่ Railway กำหนดให้
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-    console.log(`Server is running beautifully on port ${PORT}`);
+    console.log(`Meme Server is running beautifully on port ${PORT}`);
 });
