@@ -1,16 +1,15 @@
 const http = require('http');
 
 const server = http.createServer((req, res) => {
-    // กำหนดให้ส่งข้อมูลกลับไปเป็นหน้าเว็บ HTML และรองรับภาษาไทย/ญี่ปุ่น (utf-8)
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     
-    // โค้ด HTML/CSS ระบบแสดงผลแบบเสถียรที่สุด ไม่ดำ ไม่พัง แน่นอน
     res.end(`
 <!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>CR7 Meme Style Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultimate Space Cyber Profile</title>
 
 <style>
 * {
@@ -19,177 +18,254 @@ const server = http.createServer((req, res) => {
 
 body {
     margin: 0;
-    /* พื้นหลังเฉดสีดำ-แดงดุดัน สไตล์สปอร์ต */
-    background: radial-gradient(circle, #1c0205 0%, #0a0002 100%);
-    font-family: "Segoe UI", "Helvetica Neue", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+    height: 100vh;
+    background: radial-gradient(circle, #0d001a 0%, #030008 100%);
+    font-family: "Segoe UI", -apple-system, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    color: white;
-    padding: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* เอฟเฟกต์ฝุ่นดาวระยิบระยับข้างหลัง (สร้างด้วย CSS) */
+body::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background-image: 
+        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+    background-size: 550px 550px, 350px 350px, 250px 250px;
+    background-position: 0 0, 40px 60px, 130px 270px;
+    animation: starTravel 120s linear infinite;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+@keyframes starTravel {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); }
+}
+
+/* การ์ดโฮโลแกรม 3D */
+.card-wrapper {
+    position: relative;
+    z-index: 10;
+    perspective: 1000px;
 }
 
 .card {
-    width: 450px;
-    background: rgba(10, 5, 5, 0.9);
-    border: 3px solid #e51b23;
-    border-radius: 25px;
-    padding: 40px 30px 30px 30px;
+    width: 430px;
+    background: rgba(10, 5, 20, 0.75);
+    border: 2px solid #00f0ff;
+    border-radius: 24px;
+    padding: 40px 30px;
     text-align: center;
-    /* แสงนีออนสีแดงรอบการ์ด */
-    box-shadow: 0 0 30px rgba(229, 27, 35, 0.6);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
-    backdrop-filter: blur(10px);
-    position: relative;
-    overflow: hidden;
+    box-shadow: 
+        0 0 20px rgba(0, 240, 255, 0.3),
+        inset 0 0 20px rgba(255, 0, 128, 0.2);
+    backdrop-filter: blur(15px);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
 }
 
+/* เอฟเฟกต์ขยับเมื่อเอาเมาส์จี้ */
 .card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 0 50px rgba(229, 27, 35, 1);
+    transform: rotateX(5deg) rotateY(-5deg) translateY(-10px);
+    border-color: #ff007f;
+    box-shadow: 
+        0 0 40px rgba(255, 0, 127, 0.6),
+        inset 0 0 30px rgba(0, 240, 255, 0.3);
 }
 
-/* ธงชาติไทยมุมซ้ายบนแบบ CSS Code (ไม่มีวันแตก ไม่มีวันดำเพราะไม่ต้องดึงรูปนอกเว็บ) */
-.flag-thailand {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 45px;
-    height: 30px;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.6);
-    z-index: 10;
-    background: linear-gradient(
-        to bottom,
-        #a51931 0%, #a51931 16.6%,
-        #f4f5f8 16.6%, #f4f5f8 33.3%,
-        #2d2a4a 33.3%, #2d2a4a 66.6%,
-        #f4f5f8 66.6%, #f4f5f8 83.3%,
-        #a51931 83.3%, #a51931 100%
-    );
+/* โลโก้กลวงเรืองแสง (CSS pure) */
+.neon-portal {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 25px auto;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ff007f 10%, transparent 70%);
+    border: 3px double #00f0ff;
+    box-shadow: 0 0 30px #00f0ff, inset 0 0 20px #ff007f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: rotatePortal 8s linear infinite;
 }
 
-/* 🎬 ภาพมีมโรนัลโด้ SIUUUU จากเซิร์ฟเวอร์สำรองที่เสถียรที่สุด */
-.meme-profile {
-    width: 240px;
-    height: 170px;
-    object-fit: cover;
-    border-radius: 15px;
-    border: 4px solid #fff;
-    margin: 10px auto 20px auto;
-    display: block;
-    box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
-    transition: transform 0.2s ease-in-out;
+.neon-portal-inner {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px dashed #ff007f;
+    animation: rotateCounter 4s linear infinite;
 }
 
-.card:hover .meme-profile {
-    animation: memeShake 0.5s;
-    animation-iteration-count: infinite;
+@keyframes rotatePortal {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.05); }
+    100% { transform: rotate(360deg) scale(1); }
 }
 
-@keyframes memeShake {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    30% { transform: translate(3px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(3px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(1px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
+@keyframes rotateCounter {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
 }
 
 h1 {
-    color: #e51b23;
-    font-family: "Impact", "Segoe UI", sans-serif;
-    font-size: 38px;
+    font-family: 'Impact', sans-serif;
+    font-size: 42px;
     margin: 0;
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(229, 27, 35, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    background: linear-gradient(45deg, #00f0ff, #ff007f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 8px rgba(0,240,255,0.5));
 }
 
-.jp-sub {
-    color: #ffffff;
+.sub {
+    color: #ff007f;
+    font-family: monospace;
+    font-size: 14px;
+    letter-spacing: 5px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-shadow: 0 0 5px #ff007f;
+}
+
+/* แถบข้อมูลสไตล์ UI ล้ำยุค */
+.cyber-info {
     font-size: 18px;
-    margin-top: 5px;
-    margin-bottom: 25px;
-    opacity: 0.9;
-}
-
-.info {
-    font-size: 20px;
     margin: 15px 0;
     display: flex;
     justify-content: space-between;
-    padding: 12px 18px;
-    background: rgba(255, 255, 255, 0.05);
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(0, 240, 255, 0.15);
     border-radius: 12px;
-    border-left: 5px solid #e51b23;
-    text-align: left;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
 }
 
-.info span {
-    color: #ccc;
+.cyber-info::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #00f0ff;
 }
 
-.info b {
+.cyber-info:hover {
+    background: rgba(0, 240, 255, 0.05);
+    border-color: #00f0ff;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+    transform: scale(1.02);
+}
+
+/* สลับสีให้แถบที่สอง */
+.cyber-info.pink::before {
+    background: #ff007f;
+}
+.cyber-info.pink:hover {
+    background: rgba(255, 0, 127, 0.05);
+    border-color: #ff007f;
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.2);
+}
+
+.cyber-info span {
+    color: #888;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cyber-info b {
     color: #fff;
+    text-shadow: 0 0 5px rgba(255,255,255,0.5);
 }
 
-.line {
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #e51b23, transparent);
-    margin: 30px auto;
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #00f0ff, #ff007f, transparent);
+    margin: 30px 0;
 }
 
 .footer {
-    color: #ffb3c1;
+    font-size: 15px;
+    color: #00f0ff;
+    text-shadow: 0 0 10px rgba(0,240,255,0.5);
     font-style: italic;
     line-height: 1.6;
 }
 
-.siu-text {
-    font-family: "Impact", sans-serif;
-    color: #ffd700;
-    font-size: 32px;
-    letter-spacing: 3px;
+.glow-btn {
+    display: inline-block;
     margin-top: 15px;
-    display: block;
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
-    transform: rotate(-5deg);
+    padding: 8px 20px;
+    background: transparent;
+    border: 1px solid #ff007f;
+    color: #ff007f;
+    border-radius: 50px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-shadow: 0 0 5px #ff007f;
+    box-shadow: 0 0 10px rgba(255,0,127,0.2);
+    animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 5px rgba(255,0,127,0.2); }
+    50% { box-shadow: 0 0 20px rgba(255,0,127,0.6); }
+    100% { box-shadow: 0 0 5px rgba(255,0,127,0.2); }
 }
 </style>
 
 </head>
 <body>
 
-<div class="card">
-    <!-- 🇹🇭 ธงชาติไทยที่วาดด้วย CSS เกรดดีที่สุด (ไม่พึ่งพาไฟล์ภาพภายนอก ไม่มีทางเป็นภาพดำ) -->
-    <div class="flag-thailand"></div>
+<div class="card-wrapper">
+    <div class="card">
+        <!-- 🌀 พอร์ทัลเรืองแสงแบบ CSS หมุนได้ -->
+        <div class="neon-portal">
+            <div class="neon-portal-inner"></div>
+        </div>
+        
+        <h1>自己紹介</h1>
+        <div class="sub">// USER PROFILE //</div>
 
-    <!-- 🎬 มีม GIF แบบลิงก์สำรองคุณภาพสูงของ Dev (แสดงผลได้ทั่วโลก) -->
-    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Vmb3M3MXR1Z2o2djF4MHpzeHptanY4NHozcTFlZnR1dHhyeXNzbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/r1IMdmkhWpZyM/giphy.gif" alt="Ronaldo SIU Meme" class="meme-profile">
-    
-    <h1>自己紹介</h1>
-    <div class="jp-sub">Jikoshoukai (แนะนำตัว)</div>
+        <div class="divider"></div>
 
-    <div class="line"></div>
+        <!-- ข้อมูลแนะนำตัวของคุณ -->
+        <div class="cyber-info">
+            <span>👤 NAME</span>
+            <b>ธนดล แสงทอง</b>
+        </div>
+        
+        <div class="cyber-info pink">
+            <span>🎓 STUDENT ID</span>
+            <b>69319011719</b>
+        </div>
 
-    <!-- ข้อมูลแนะนำตัวของคุณ -->
-    <div class="info"><span>👤 ชื่อ :</span> <b>ธนดล แสงทอง</b></div>
-    <div class="info"><span>🎓 รหัส :</span> <b>69319011719</b></div>
+        <div class="divider"></div>
 
-    <div class="line"></div>
-
-    <div class="footer">
-        「よろしくお願いします。」
-        <br>
-        Yoroshiku Onegaishimasu
-        <span class="siu-text">SIUUUUUUU!</span>
+        <div class="footer">
+            「よろしくお願いします。」
+            <br>
+            Yoroshiku Onegaishimasu
+            <br>
+            <span class="glow-btn">SYSTEM ONLINE</span>
+        </div>
     </div>
 </div>
 
@@ -198,8 +274,7 @@ h1 {
     `);
 });
 
-// ให้เซิร์ฟเวอร์รันบน Port ที่ Railway กำหนดให้
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-    console.log(`Meme Server is running beautifully on port ${PORT}`);
+    console.log(`Ultimate Space Cyber Server is running on port ${PORT}`);
 });
