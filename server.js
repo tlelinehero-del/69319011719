@@ -4,13 +4,13 @@ const server = http.createServer((req, res) => {
     // กำหนดให้ส่งข้อมูลกลับไปเป็นหน้าเว็บ HTML และรองรับภาษาไทย/ญี่ปุ่น (utf-8)
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     
-    // โค้ด HTML/CSS ดีไซน์การ์ดแนะนำตัวธีม CR7 ฟุตบอลสุดเท่
+    // HTML/CSS ดีไซน์การ์ดแนะนำตัวธีมฟุตบอลแบบมีรูป
     res.end(`
 <!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>CR7 Style Profile</title>
+<title>CR7 Style Profile with Images</title>
 
 <style>
 * {
@@ -19,27 +19,30 @@ const server = http.createServer((req, res) => {
 
 body {
     margin: 0;
-    /* ไล่เฉดสีดำ-แดงสปอร์ตเรืองแสง */
+    /* พื้นหลังเฉดสีดำ-แดงสปอร์ต */
     background: radial-gradient(circle, #1c0205 0%, #0a0002 100%);
     font-family: "Segoe UI", "Helvetica Neue", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     color: white;
+    padding: 20px;
 }
 
 .card {
-    width: 420px;
+    width: 450px;
     background: rgba(10, 5, 5, 0.85);
     border: 3px solid #e51b23;
     border-radius: 25px;
-    padding: 30px;
+    padding: 40px 30px 30px 30px;
     text-align: center;
     /* แสงนีออนสีแดงรอบการ์ด */
     box-shadow: 0 0 30px rgba(229, 27, 35, 0.6);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
     backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
 }
 
 .card:hover {
@@ -47,21 +50,28 @@ body {
     box-shadow: 0 0 45px rgba(229, 27, 35, 0.9);
 }
 
-/* สัญลักษณ์เลข 7 สไตล์ CR7 */
-.badge-7 {
-    width: 75px;
-    height: 75px;
-    background: linear-gradient(135deg, #e51b23, #b30f15);
+/* ธงชาติไทยมุมซ้ายบน */
+.flag-thailand {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 40px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    z-index: 10;
+}
+
+/* รูปโรนัลโด้ตรงกลาง */
+.ronaldo-profile {
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: "Impact", sans-serif;
-    font-size: 36px;
-    font-weight: bold;
-    margin: 0 auto 15px auto;
-    box-shadow: 0 0 15px rgba(229, 27, 35, 0.8);
-    border: 2px solid #fff;
+    object-fit: cover; /* ให้รูปไม่เบี้ยว */
+    border: 4px solid #e51b23;
+    margin: 0 auto 20px auto;
+    display: block;
+    box-shadow: 0 0 20px rgba(229, 27, 35, 0.8);
 }
 
 h1 {
@@ -77,7 +87,7 @@ h1 {
     color: #ffffff;
     font-size: 18px;
     margin-top: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     opacity: 0.9;
 }
 
@@ -105,7 +115,7 @@ h1 {
     width: 100%;
     height: 2px;
     background: linear-gradient(90deg, transparent, #e51b23, transparent);
-    margin: 25px auto;
+    margin: 30px auto;
 }
 
 .footer {
@@ -117,10 +127,11 @@ h1 {
 .siu-text {
     font-family: "Impact", sans-serif;
     color: #ffd700; /* สีทองแชมเปียน */
-    font-size: 20px;
+    font-size: 24px;
     letter-spacing: 2px;
-    margin-top: 10px;
+    margin-top: 15px;
     display: block;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 </style>
 
@@ -128,8 +139,11 @@ h1 {
 <body>
 
 <div class="card">
-    <!-- โลโก้เลข 7 สุดเท่ -->
-    <div class="badge-7">7</div>
+    <!-- 🇹🇭 รูปธงชาติไทย (มุมซ้ายบน) -->
+    <img src="https://flagcdn.com/w80/th.png" alt="Thailand Flag" class="flag-thailand">
+
+    <!-- ⚽ รูปคริสเตียโน โรนัลโด้ (ตรงกลาง) -->
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_WC2022_-_01.jpg" alt="Cristiano Ronaldo" class="ronaldo-profile">
     
     <h1>自己紹介</h1>
     <div class="jp-sub">Jikoshoukai (แนะนำตัว)</div>
@@ -158,5 +172,5 @@ h1 {
 // ให้เซิร์ฟเวอร์รันบน Port ที่ Railway กำหนดให้
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-    console.log(`Server is running beautifully on port ${PORT}`);
+    console.log(`Server is running with images on port ${PORT}`);
 });
