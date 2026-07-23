@@ -43,9 +43,9 @@ input[type="text"] { width: 100%; padding: 8px; margin: 8px 0; border: 1px solid
 <h2>➕ เพิ่มข้อมูลนักศึกษาใหม่</h2>
 <!-- ฟอร์มนี้จะส่งข้อมูลไปที่ /add ด้วยวิธี POST -->
 <form action="/add" method="POST" style="margin-bottom: 30px;">
-<label>รหัสนักศึกษา:</label>
+<label>69319011719:</label>
 <input type="text" name="student_id" placeholder="กรอกรหัสนักศึกษา" required>
-<label>ชื่อ-นามสกุล:</label>
+<label>ธนดล แสงทอง:</label>
 <input type="text" name="student_name" placeholder="กรอกชื่อ-นามสกุล" required>
 <button type="submit" class="btn-add">บันทึกข้อมูล</button>
 </form>
