@@ -21,11 +21,25 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
-// เช็คการเชื่อมต่อตอนเริ่ม server เพื่อให้เห็น error ชัดเจนทันที (ไม่ใช่ตอนมีคนเข้าเว็บ)
+// เช็คการเชื่อมต่อตอนเริ่ม server และสร้างตาราง students อัตโนมัติถ้ายังไม่มี
+// (กันปัญหา "relation students does not exist" เวลา deploy ฐานข้อมูลใหม่)
 pool.connect()
-  .then(client => {
+  .then(async (client) => {
     console.log('✅ เชื่อมต่อฐานข้อมูลสำเร็จ');
-    client.release();
+    try {
+      await client.query(`
+        CREATE TABLE IF NOT EXISTS students (
+          id SERIAL PRIMARY KEY,
+          student_id VARCHAR(20) NOT NULL,
+          student_name VARCHAR(255) NOT NULL
+        );
+      `);
+      console.log('✅ ตรวจสอบ/สร้างตาราง students เรียบร้อย');
+    } catch (err) {
+      console.error('❌ สร้างตาราง students ไม่สำเร็จ:', err.message);
+    } finally {
+      client.release();
+    }
   })
   .catch(err => {
     console.error('❌ เชื่อมต่อฐานข้อมูลไม่สำเร็จ:', err.message);
